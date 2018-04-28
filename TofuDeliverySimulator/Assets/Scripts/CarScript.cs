@@ -5,6 +5,9 @@ using UnityEngine;
 public class CarScript : MonoBehaviour {
 
     private Rigidbody rb;
+    public float speeeeeeeeeeed;
+    public int rotateSpeed;
+    public Vector3 currentVelocity;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +18,18 @@ public class CarScript : MonoBehaviour {
 	void Update () {
 		if(rb.velocity.magnitude <= 20.0f)
         {
-            rb.AddForce(new Vector3(1.5f, 0, 0));
+            rb.AddForce(transform.forward.normalized * 3);
         }
-	}
+        speeeeeeeeeeed = rb.velocity.magnitude;
+        currentVelocity = rb.velocity;
+
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            transform.Rotate(new Vector3(0, -1, 0) * Time.deltaTime * rotateSpeed, Space.World);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * rotateSpeed, Space.World);
+        }
+    }
 }
