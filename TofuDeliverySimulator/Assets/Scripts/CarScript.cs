@@ -24,29 +24,30 @@ public class CarScript : MonoBehaviour {
         //Debug.Log(dist);
         Vector3 driftDiff = transform.forward - rb.velocity;
         rb.AddForce(driftDiff * 0.5f);
-        //if (offVector)
-        //{
-        //    //Debug.Log("AAH");
-        //    //rb.velocity *= 0.98f;
-        //}
-		if(rb.velocity.magnitude <= maxSpeed)
-        {
-            rb.AddForce(transform.forward.normalized * (maxSpeed - rb.velocity.magnitude));
-            Debug.Log("Adding force of " + transform.forward.normalized * (maxSpeed - rb.velocity.magnitude));
-        }
+		
         speeeeeeeeeeed = rb.velocity.magnitude;
         currentVelocity = rb.velocity;
         currentForward = transform.forward;
 
-        
-
-        if(Input.GetKeyDown(KeyCode.A))
+        bool brakes = false;
+        if(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+        {
+            brakes = true;
+            rb.AddForce(transform.forward * -1);
+        }
+        else if(Input.GetKeyDown(KeyCode.A))
         {
             transform.Rotate(new Vector3(0, -1, 0) * Time.deltaTime * rotateSpeed, Space.World);
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * rotateSpeed, Space.World);
+        }
+
+        if (rb.velocity.magnitude <= maxSpeed && !brakes)
+        {
+            rb.AddForce(transform.forward.normalized * (maxSpeed - rb.velocity.magnitude));
+            Debug.Log("Adding force of " + transform.forward.normalized * (maxSpeed - rb.velocity.magnitude));
         }
     }
 
