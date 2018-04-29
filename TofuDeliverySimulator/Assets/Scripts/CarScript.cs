@@ -22,14 +22,17 @@ public class CarScript : MonoBehaviour {
 	void Update () {
         bool offVector = Approximately(transform.forward.normalized, rb.velocity.normalized, 1);
         //Debug.Log(dist);
-        if (offVector)
-        {
-            //Debug.Log("AAH");
-            //rb.velocity *= 0.98f;
-        }
+        Vector3 driftDiff = transform.forward - rb.velocity;
+        rb.AddForce(driftDiff * 0.5f);
+        //if (offVector)
+        //{
+        //    //Debug.Log("AAH");
+        //    //rb.velocity *= 0.98f;
+        //}
 		if(rb.velocity.magnitude <= maxSpeed)
         {
             rb.AddForce(transform.forward.normalized * (maxSpeed - rb.velocity.magnitude));
+            Debug.Log("Adding force of " + transform.forward.normalized * (maxSpeed - rb.velocity.magnitude));
         }
         speeeeeeeeeeed = rb.velocity.magnitude;
         currentVelocity = rb.velocity;
