@@ -29,17 +29,19 @@ public class CarScript : MonoBehaviour {
         currentVelocity = rb.velocity;
         currentForward = transform.forward;
 
+        int timeHeld = 0;
+
         bool brakes = false;
         if(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
         {
             brakes = true;
             rb.AddForce(transform.forward * -1);
         }
-        else if(Input.GetKeyDown(KeyCode.A))
+        else if(Input.GetKey(KeyCode.A))
         {
             transform.Rotate(new Vector3(0, -1, 0) * Time.deltaTime * rotateSpeed, Space.World);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * rotateSpeed, Space.World);
         }
